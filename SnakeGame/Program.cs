@@ -1,3 +1,3 @@
-﻿using Zmeika2;
+﻿using SnakeGame;
 
 Game.Start();

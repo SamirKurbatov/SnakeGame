@@ -1,6 +1,5 @@
-﻿using Zmeika2;
-
-namespace ConsoleApp1;
+﻿
+namespace SnakeGame;
 
 public class FoodGenerator
 {
@@ -13,7 +12,7 @@ public class FoodGenerator
 
         do
         {
-            food = new Pixel(Random.Next(1, gameBoard.GetBoardWidth() - 2), Random.Next(1, gameBoard.GetBoardHeight() - 2), FoodColor);
+            food = new Pixel(Random.Next(1, gameBoard.BoardWidth - 2), Random.Next(1, gameBoard.BoardHeight - 2), FoodColor);
         } while (snake.Head.X == food.X && snake.Head.Y == food.Y
         || snake.Body.Any(b => b.X == food.X && b.Y == food.Y));
 

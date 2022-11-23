@@ -1,47 +1,24 @@
-﻿namespace Zmeika2;
+﻿namespace SnakeGame;
 
 public readonly struct Pixel
 {
-    private const char PixelImage = '█';
+    private const char _pixelImage = '█';
+    public char PixelImage => _pixelImage;
 
-    public Pixel(int x, int y, ConsoleColor pixelColor, int pixelSize = 3)
+    public Pixel(int x, int y, ConsoleColor color, int size = 3)
     {
         X = x;
         Y = y;
-        PixelColor = pixelColor;
-        PixelSize = pixelSize;
+        Color = color;
+        Size = size;
     }
+
     public int X { get; }
 
     public int Y { get; }
 
-    public ConsoleColor PixelColor { get; }
+    public ConsoleColor Color { get; }
 
-    public int PixelSize { get; }
+    public int Size { get; }
 
-    public void Draw()
-    {
-        Console.ForegroundColor = PixelColor;
-        for (int x = 0; x < PixelSize; x++)
-        {
-            for (int y = 0; y < PixelSize; y++)
-            {
-                Console.SetCursorPosition(X * PixelSize + x, Y * PixelSize + y);
-                Console.Write(PixelImage);
-            }
-        }
-    }
-
-    public void Clear()
-    {
-
-        for (int x = 0; x < PixelSize; x++)
-        {
-            for (int y = 0; y < PixelSize; y++)
-            {
-                Console.SetCursorPosition(X * PixelSize + x, Y * PixelSize + y);
-                Console.Write(' ');
-            }
-        }
-    }
 }

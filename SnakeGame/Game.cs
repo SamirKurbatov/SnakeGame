@@ -1,18 +1,17 @@
-﻿using ConsoleApp1;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
-namespace Zmeika2;
+namespace SnakeGame;
 
 internal class Game
 {
     private const int FrameMs = 200;
-
+    private static GameBoardDrawer _gameBoardDrawer = new();
 
     public static void Start()
     {
         var gameBoard = GameBoard.Initialize();
         var score = 0;
-        gameBoard.DrawBoard();
+        _gameBoardDrawer.Draw(gameBoard);
         var currentMovement = Direction.Right;
         var snake = SnakeCreator.Create();
         var food = FoodGenerator.Generate(snake, gameBoard);
@@ -44,9 +43,9 @@ internal class Game
             }
 
             if (snake.Head.X == 0
-            || snake.Head.X == gameBoard.GetBoardWidth() - 1
+            || snake.Head.X == gameBoard.BoardWidth - 1
             || snake.Head.Y == 0
-            || snake.Head.Y == gameBoard.GetBoardHeight() - 1
+            || snake.Head.Y == gameBoard.BoardWidth - 1
             || snake.Body.Any(b => b.X == snake.Head.X && b.Y == snake.Head.Y))
             {
                 break;
@@ -55,7 +54,7 @@ internal class Game
 
         snake.Clear();
 
-        Console.SetCursorPosition(gameBoard.GetScreenWidth() / 3, gameBoard.GetScreenHeight() / 3);
+        Console.SetCursorPosition(gameBoard.ScreenWidth / 3, gameBoard.ScreenHeight / 3);
         Console.Write("Game over! ");
         Console.ReadKey();
     }

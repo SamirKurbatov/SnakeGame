@@ -1,66 +1,93 @@
-﻿namespace Zmeika2;
+﻿using System.Collections;
 
-public class Snake
+namespace SnakeGame;
+
+public class Snake : IEnumerable<Pixel>
 {
-    private readonly ConsoleColor _headColor;
-    private readonly ConsoleColor _bodyColor;
+    private List<Pixel> _parts = new();
+
+    private PixelDrawer _pixelDrawer = new();
 
     public Snake(int initialX, int initialY, ConsoleColor headColor, ConsoleColor bodyColor, int bodyLength = 3)
     {
-        _headColor = headColor;
-        _bodyColor = bodyColor;
+        InitialX = initialX;
+        InitialY = initialY;
+        HeadColor = headColor;
+        BodyColor = bodyColor;
+        BodyLength = bodyLength;
 
-        Head = new Pixel(initialX, initialY, headColor);
-
-        for (int i = bodyLength; i >= 0; i--)
-        {
-            Body.Enqueue(new Pixel(Head.X - 1 - i, initialY, bodyColor));
-        }
-        Draw();
+        
+        _pixelDrawer.Draw(Head);
     }
-    public Pixel Head { get; private set; }
+
+    public Snake()
+    {
+
+    }
+
+    public ConsoleColor HeadColor { get; private set; }
+
+    public ConsoleColor BodyColor { get; private set; }
+
+    public int BodyLength { get; private set; }
+
+    public int InitialX { get; private set; }
+
+    public int InitialY { get; private set; }
+
+    public Pixel Head { get; set; }
 
     public Queue<Pixel> Body { get; } = new();
 
-    public void Move(Direction direction, bool eat = false)
+    //public void Move(Direction direction, bool eat = false)
+    //{
+    //    Clear();
+
+    //    Body.Enqueue(new Pixel(Head.X, Head.Y, _bodyColor));
+    //    if (eat == false)
+    //    {
+    //        Body.Dequeue();
+    //    }
+
+    //    Head = direction switch
+    //    {
+    //        Direction.Right => new Pixel(Head.X + 1, Head.Y, _headColor),
+    //        Direction.Left => new Pixel(Head.X - 1, Head.Y, _headColor),
+    //        Direction.Up => new Pixel(Head.X, Head.Y - 1, _headColor),
+    //        Direction.Down => new Pixel(Head.X, Head.Y + 1, _headColor),
+    //        _ => Head
+    //    };
+
+    //    Draw();
+    //}
+
+
+
+    //public void Clear()
+    //{
+    //    Head.Clear();
+
+    //    foreach (var pixel in Body)
+    //    {
+    //        pixel.Clear();
+    //    }
+    //}
+
+    public void Add(Pixel part)
     {
-        Clear();
-
-        Body.Enqueue(new Pixel(Head.X, Head.Y, _bodyColor));
-        if (eat == false)
-        {
-            Body.Dequeue();
-        }
-
-        Head = direction switch
-        {
-            Direction.Right => new Pixel(Head.X + 1, Head.Y, _headColor),
-            Direction.Left => new Pixel(Head.X - 1, Head.Y, _headColor),
-            Direction.Up => new Pixel(Head.X, Head.Y - 1, _headColor),
-            Direction.Down => new Pixel(Head.X, Head.Y + 1, _headColor),
-            _ => Head
-        };
-
-        Draw();
+        _parts.Add(part);
     }
 
-    public void Draw()
+    public IEnumerator<Pixel> GetEnumerator()
     {
-        Head.Draw();
-
-        foreach (var pixel in Body)
+        foreach (var part in _parts)
         {
-            pixel.Draw();
+            yield return part;
         }
     }
 
-    public void Clear()
+    IEnumerator IEnumerable.GetEnumerator()
     {
-        Head.Clear();
-
-        foreach (var pixel in Body)
-        {
-            pixel.Clear();
-        }
+        return GetEnumerator();
     }
 }
