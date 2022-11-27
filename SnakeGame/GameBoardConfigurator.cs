@@ -1,10 +1,11 @@
-﻿using SnakeGame.Models;
+﻿using SnakeGame.Inerfaces;
+using SnakeGame.Models;
 
 namespace SnakeGame;
 
-internal class GameBoardConfigurator : BaseConfigurator<GameBoard>
+internal class GameBoardConfigurator : IConfigure<GameBoard>
 {
-    public override void Configure(GameBoard gameBoard)
+    public void Configure(GameBoard gameBoard)
     {
         Console.CursorVisible = false;
     }

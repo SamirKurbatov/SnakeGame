@@ -2,11 +2,9 @@
 
 public class GameBoard
 {
-    private GameBoardConfigurator _gameBoardConfigurator = new();
-
     public GameBoard()
     {
-        _gameBoardConfigurator.Configure(this);
+        new GameBoardConfigurator().Configure(this);
     }
 
     private const ConsoleColor _borderColor = ConsoleColor.Gray;
@@ -23,4 +21,5 @@ public class GameBoard
 
     private const int _screenHeight = _boardHeight * 3;
     public int ScreenHeight => _screenHeight;
+
 }

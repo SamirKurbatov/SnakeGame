@@ -7,14 +7,21 @@ namespace SnakeGame.Models;
 
 internal class Game
 {
+    public Game()
+    {
+        _foodGenerator = new(_gameBoard);
+        ICreate<Snake> creator = new SnakeCreatorByConsole();
+        _snake = creator.Create();
+    }
+
     private const int FrameMs = 200;
 
-    private readonly SnakeCreator _snakeCreator = new();
     private readonly PixelDrawer _pixelDrawer = new();
-    private readonly SnakePixelClearer _snakePixelClearer = new();
-    private readonly PixelClearer _pixelClearer = new();
+    private readonly SnakePixelDrawer _snakePixelClearer = new();
     private readonly GameBoardDrawer _gameBoardDrawer = new();
+    private readonly Snake _snake;
     private readonly GameBoard _gameBoard = new();
+    private readonly FoodGenerator _foodGenerator;
 
     public void Start()
     {
@@ -22,8 +29,7 @@ internal class Game
         var isContiniue = true;
         var currentMovement = Direction.Right;
         _gameBoardDrawer.Draw(_gameBoard, _pixelDrawer);
-        var snake = _snakeCreator.Create();
-        var food = FoodGenerator.Generate(snake, _gameBoard);
+        var food = _foodGenerator.Generate(_snake);
         _pixelDrawer.Draw(food);
         Stopwatch stopwatch = new();
         while (isContiniue)
@@ -39,41 +45,40 @@ internal class Game
                 }
             }
 
-            if (snake.Head.X == food.X && snake.Head.Y == food.Y)
+            if (_snake.Head.X == food.X && _snake.Head.Y == food.Y)
             {
-                snake.Move(currentMovement, true);
-                food = FoodGenerator.Generate(snake, _gameBoard);
+                _snake.Move(currentMovement, true);
+                food = _foodGenerator.Generate(_snake);
                 _pixelDrawer.Draw(food);
                 score++;
             }
             else
             {
-                snake.Move(currentMovement);
+                _snake.Move(currentMovement);
             }
 
-            if (GameOver(snake, _gameBoard))
+            if (Collision())
             {
+                Console.Clear();
                 break;
             }
         }
-        _snakePixelClearer.Clear(snake, _pixelClearer);
+        _snakePixelClearer.Clear(_snake, _pixelDrawer);
         Console.SetCursorPosition(_gameBoard.ScreenWidth / 3, _gameBoard.ScreenHeight / 3);
         Console.Write($"Game over! Ваши очки {score}");
         Console.ReadKey();
     }
 
-    private bool GameOver(Snake snake, GameBoard gameBoard)
+    private bool Collision()
     {
-        bool isSnakeHeadXOverGameBoard = snake.Head.X == 0 || snake.Head.X == gameBoard.BoardWidth - 1;
-        bool isSnakeHeadYOverGameBoard = snake.Head.Y == 0 || snake.Head.Y == gameBoard.BoardWidth - 1;
-        bool isSnakeBodyOverGameBoard = snake.Body.Any(b => b.X == snake.Head.X && b.Y == snake.Head.Y);
+        bool isSnakeHeadXOverGameBoard = _snake.Head.X == 0 || _snake.Head.X == _gameBoard.BoardWidth - 1;
+        if (isSnakeHeadXOverGameBoard) return true;
+        bool isSnakeHeadYOverGameBoard = _snake.Head.Y == 0 || _snake.Head.Y == _gameBoard.BoardHeight - 1;
+        if (isSnakeHeadYOverGameBoard) return true;
+        bool isSnakeBodyOverGameBoard = _snake.Body.Any(b => b.X == _snake.Head.X && b.Y == _snake.Head.Y);
+        if (isSnakeBodyOverGameBoard) return true;
 
-        if ((isSnakeBodyOverGameBoard || isSnakeHeadYOverGameBoard || isSnakeHeadXOverGameBoard) == false)
-        {
-            return false;
-        }
-        Console.Clear();
-        return true;
+        return false;
     }
 
     private static Direction ReadMovement(Direction currentDirection)
@@ -94,6 +99,5 @@ internal class Game
         };
 
         return currentDirection;
-
     }
 }

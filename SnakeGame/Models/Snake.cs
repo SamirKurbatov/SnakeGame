@@ -7,9 +7,7 @@ namespace SnakeGame.Models;
 public class Snake
 {
     private readonly PixelDrawer _pixelDrawer = new();
-    private readonly PixelClearer _pixelClearer = new();
     private readonly SnakePixelDrawer _snakePixelDrawer = new();
-    private readonly SnakePixelClearer _snakePixelClearer = new();
 
     public Snake(int initialX, int initialY, ConsoleColor headColor, ConsoleColor bodyColor, int bodyLength = 3)
     {
@@ -25,10 +23,7 @@ public class Snake
         {
             Body.Enqueue(new Pixel(Head.X - 1 - i, initialY, bodyColor));
         }
-        if (Head.X == -1 || Head.Y == -1)
-        {
-            Console.WriteLine("Ты даун! ");
-        }
+     
         _pixelDrawer.Draw(Head);
     }
 
@@ -48,7 +43,7 @@ public class Snake
 
     public void Move(Direction direction, bool eat = false)
     {
-        _snakePixelClearer.Clear(this, _pixelClearer); // исправить
+        _snakePixelDrawer.Clear(this, _pixelDrawer); // исправить
 
         Body.Enqueue(new Pixel(Head.X, Head.Y, BodyColor));
         if (eat == false)

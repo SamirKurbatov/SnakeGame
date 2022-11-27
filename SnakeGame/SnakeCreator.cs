@@ -2,7 +2,7 @@
 
 namespace SnakeGame;
 
-public class SnakeCreator : ICreate<Snake>
+public class SnakeCreatorByConsole : ICreate<Snake>
 {
     public Snake Create()
     {
@@ -12,7 +12,7 @@ public class SnakeCreator : ICreate<Snake>
         var initialX = int.Parse(Console.ReadLine());
         Console.Write("Введите конечную позицию Y: ");
         var initialY = int.Parse(Console.ReadLine());
-        Console.Write("Введите длиную змеи: ");
+        Console.Write("Введите длину змеи: ");
         var bodyLenght = int.Parse(Console.ReadLine());
         return new Snake(initialX, initialY, headColor, bodyColor, bodyLenght);
     }

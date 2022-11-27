@@ -1,10 +1,11 @@
-﻿using SnakeGame.Models;
+﻿using SnakeGame.Interfaces;
+using SnakeGame.Models;
 
 namespace SnakeGame;
 
-public class PixelDrawer : BaseSpecificDrawer<Pixel>
+public class PixelDrawer : IDrawer<Pixel>
 {
-    public override void Draw(Pixel pixel)
+    public void Draw(Pixel pixel)
     {
         Console.ForegroundColor = pixel.Color;
         for (int x = 0; x < pixel.Size; x++)
@@ -13,6 +14,18 @@ public class PixelDrawer : BaseSpecificDrawer<Pixel>
             {
                 Console.SetCursorPosition(pixel.X * pixel.Size + x, pixel.Y * pixel.Size + y);
                 Console.WriteLine(pixel.PixelImage);
+            }
+        }
+    }
+
+    public void Clear(Pixel pixel)
+    {
+        for (int x = 0; x < pixel.Size; x++)
+        {
+            for (int y = 0; y < pixel.Size; y++)
+            {
+                Console.SetCursorPosition(pixel.X * pixel.Size + x, pixel.Y * pixel.Size + y);
+                Console.Write(' ');
             }
         }
     }

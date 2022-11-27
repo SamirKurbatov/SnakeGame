@@ -4,6 +4,11 @@ namespace SnakeGame;
 
 public class GameBoardDrawer : BaseDrawer<GameBoard, PixelDrawer>
 {
+    public override void Clear(GameBoard firstValue, PixelDrawer secondValue)
+    {
+        Console.Clear();
+    }
+
     public override void Draw(GameBoard gameBoard, PixelDrawer pixelDrawer)
     {
         for (int i = 0; i < gameBoard.BoardWidth; i++)
