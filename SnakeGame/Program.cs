@@ -1,3 +1,5 @@
 ﻿using SnakeGame;
+using SnakeGame.Models;
 
-Game.Start();
+var game = new Game();
+game.Start();

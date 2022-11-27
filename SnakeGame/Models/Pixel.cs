@@ -1,4 +1,4 @@
-﻿namespace SnakeGame;
+﻿namespace SnakeGame.Models;
 
 public readonly struct Pixel
 {
@@ -20,5 +20,4 @@ public readonly struct Pixel
     public ConsoleColor Color { get; }
 
     public int Size { get; }
-
 }

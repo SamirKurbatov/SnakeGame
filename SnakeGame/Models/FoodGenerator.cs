@@ -1,5 +1,4 @@
-﻿
-namespace SnakeGame;
+﻿namespace SnakeGame.Models;
 
 public class FoodGenerator
 {
