@@ -1,8 +1,7 @@
-﻿namespace SnakeGame.Interfaces
+﻿namespace SnakeGame.Interfaces;
+
+internal interface IDrawer<T>
 {
-    internal interface IDrawer<T>
-    {
-        void Draw(T pixel);
-        void Clear(T pixel);
-    }
+    void Draw(T pixel);
+    void Clear(T pixel);
 }

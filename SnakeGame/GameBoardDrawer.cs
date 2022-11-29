@@ -1,15 +1,16 @@
-﻿using SnakeGame.Models;
+﻿using SnakeGame.Inerfaces;
+using SnakeGame.Models;
 
 namespace SnakeGame;
 
-public class GameBoardDrawer : BaseDrawer<GameBoard, PixelDrawer>
+public class GameBoardDrawer : IDrawble<GameBoard>
 {
-    public override void Clear(GameBoard firstValue, PixelDrawer secondValue)
+    public void Clear(GameBoard abstraction, PixelDrawer abstractionDrawer)
     {
         Console.Clear();
     }
 
-    public override void Draw(GameBoard gameBoard, PixelDrawer pixelDrawer)
+    public void Draw(GameBoard gameBoard, PixelDrawer pixelDrawer)
     {
         for (int i = 0; i < gameBoard.BoardWidth; i++)
         {

@@ -4,7 +4,7 @@ using SnakeGame.Models;
 
 namespace SnakeGame;
 
-public class SnakePixelDrawer : IDrawble<Snake, PixelDrawer>
+public class SnakePixelDrawer : IDrawble<Snake>
 {
     public void Clear(Snake snake, PixelDrawer pixelClearer)
     {

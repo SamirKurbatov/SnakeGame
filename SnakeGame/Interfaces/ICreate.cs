@@ -1,7 +1,6 @@
-﻿namespace SnakeGame
+﻿namespace SnakeGame;
+
+public interface ICreate<T>
 {
-    public interface ICreate<T>
-    {
-        T Create();
-    }
+    T Create();
 }

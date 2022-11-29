@@ -59,7 +59,6 @@ internal class Game
 
             if (Collision())
             {
-                Console.Clear();
                 break;
             }
         }

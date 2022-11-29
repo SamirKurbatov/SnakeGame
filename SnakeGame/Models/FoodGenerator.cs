@@ -16,6 +16,7 @@ public class FoodGenerator
     private int _boardHeight;
     private const int _gapMargin = 2;
     private readonly Random Random = new();
+
     private ConsoleColor _foodColor;
     public ConsoleColor FoodColor { get => _foodColor; set => _foodColor = value; }
 

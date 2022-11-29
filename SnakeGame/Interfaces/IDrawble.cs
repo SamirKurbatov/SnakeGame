@@ -1,8 +1,7 @@
-﻿namespace SnakeGame.Inerfaces
+﻿namespace SnakeGame.Inerfaces;
+
+internal interface IDrawble<T>
 {
-    internal interface IDrawble<T, K>
-    {
-        void Draw(T firstValue, K pixelDrawer);
-        void Clear(T firstValue, K pixelDrawer);
-    }
+    void Draw(T abstraction, PixelDrawer abstractionDrawer);
+    void Clear(T abstraction, PixelDrawer abstractionDrawer);
 }
